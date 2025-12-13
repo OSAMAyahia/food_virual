@@ -54,7 +54,7 @@ const Card = () => {
                     height: '380px',  //230
                   }} 
                   src={i.image}
-                  onError={(e) => { e.currentTarget.src = 'https://placehold.co/380x230?text=No+Image'; }}
+                  onError={(e) => { e.currentTarget.src = `https://loremflickr.com/400/380/${encodeURIComponent(i.category || 'food')}`; }}
                  
                   className="card-img-top"
                   alt="Food Item"

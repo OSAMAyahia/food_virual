@@ -140,7 +140,7 @@ const OrdersPage = () => {
                           <div key={index} className="d-flex align-items-center mb-2">
                             <img 
                               src={item.image} 
-                              onError={(e) => { e.currentTarget.src = 'https://placehold.co/60x60?text=No+Image'; }}
+                              onError={(e) => { e.currentTarget.src = `https://loremflickr.com/60/60/${encodeURIComponent(item.name || 'food')}`; }}
                               alt={item.name}
                               className="me-3 rounded"
                               style={{ width: '60px', height: '60px', objectFit: 'cover' }}

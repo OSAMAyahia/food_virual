@@ -67,7 +67,7 @@ const CardCategory = () => {
               >
                 <img
                   src={card.src}
-                  onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x230?text=No+Image'; }}
+                  onError={(e) => { e.currentTarget.src = `https://loremflickr.com/400/230/${encodeURIComponent(card.title || 'food')}`; }}
                   alt={card.title}
                   className="card-img-top"
                   style={{ width: "100%", objectFit: "cover", height: "230px" }}

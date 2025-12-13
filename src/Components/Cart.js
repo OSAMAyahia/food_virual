@@ -43,9 +43,9 @@ const Cart = () => {
     width: '100px',
     objectFit: 'cover', // سيضمن أن الصورة ستملأ المساحة المخصصة دون تشويه
   }}
-  src={item?.product?.image || item?.image || 'https://placehold.co/100x90?text=No+Image'}
+  src={item?.product?.image || item?.image || `https://loremflickr.com/100/90/${encodeURIComponent(item?.product?.name || item?.name || 'food')}`}
   alt={item?.product?.name || item?.name || 'Product'}
-  onError={(e) => { e.currentTarget.src = 'https://placehold.co/100x90?text=No+Image'; }}
+  onError={(e) => { e.currentTarget.src = `https://loremflickr.com/100/90/${encodeURIComponent(item?.product?.name || item?.name || 'food')}`; }}
 /> 
 
                     <p style={{ textAlign: 'left', margin: '5px' }}>

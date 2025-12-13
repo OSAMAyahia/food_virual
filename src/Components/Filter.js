@@ -105,7 +105,7 @@ const Filter = () => {
                       <Link to={`/details/${i._id}`} style={{ textDecoration: "none" }}>
                         <img
                           src={i.image}
-                          onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x230?text=No+Image'; }}
+                          onError={(e) => { e.currentTarget.src = `https://loremflickr.com/400/230/${encodeURIComponent(i.category || 'food')}`; }}
                           className="card-img-top"
                           alt={i.name}
                           style={{

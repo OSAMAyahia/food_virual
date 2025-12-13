@@ -41,7 +41,7 @@ showToast(true)
         <img
             style={{ width: '100%', height: '380px', borderRadius: '50px' , objectFit:'contain'}}
             src={currentFood.image}
-            onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x380?text=No+Image'; }}
+            onError={(e) => { e.currentTarget.src = `https://loremflickr.com/600/380/${encodeURIComponent(currentFood.category || 'food')}`; }}
             className="card-img-top"
             alt={currentFood.name}
           />
