@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+ 
+
+.buttons{
+  background-color: rgba(187, 93, 93, 0.404);
+  display: inline;
+  border-radius: 15px;
+  padding: 5px;
+  color: rgb(190, 41, 41);
+  font-weight: 700;
+  font-size: larger;
+  margin: 3px;
+}
+
+

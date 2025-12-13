@@ -1,0 +1,108 @@
+
+body{margin: 0px;}
+
+.navbar{display: flex;
+/* margin: 8px; */
+/* padding: 3px; */
+width: 90%;
+justify-content:  space-between;}
+
+.list{
+    list-style: none;
+    gap: 15px;
+    /* margin: 0px; */
+    display: flex;
+    align-items: center;
+}
+
+.container{
+    justify-content: space-between;
+
+}
+
+.food{font-weight: 800;
+font-size: 25px;}
+
+
+.imgs {
+    width: 100%;
+     height: auto; /* تحافظ على النسبة بين العرض والطول */
+    object-fit: cover; /* تجعل الصورة تتناسب داخل الحاوية */
+    max-width: 100%; /* تمنع الصورة من تجاوز الحاوية */
+  }
+
+  /* إعدادات عامة */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .hamburger {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .list {
+    display: flex;
+    list-style: none;
+    /* gap: 15px; */
+    margin-right:120px
+  }
+  
+  .list li {
+    cursor: pointer;
+  }
+  
+  /* إعدادات الشاشة الصغيرة */
+  @media (max-width:1300px) {
+    .hamburger {
+      display: block;
+    }
+  
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  
+    .menu.open {
+      display: flex;
+    }
+  
+    .list {
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+    }
+  }
+  
+
+  /* التأثير على العناصر عند الوقوف عليها */
+/* التأثير على العناصر النشطة */
+.navbar .menu .list li.active {
+  border-bottom: 3px solid lightcoral; /* إضافة خط أسفل العنصر النشط */
+  font-weight: bold; /* لتكبير الخط وتوضيحه */
+  color: lightcoral; /* تغيير اللون إذا أردت */
+}
+
+
