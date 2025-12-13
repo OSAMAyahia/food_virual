@@ -16,13 +16,13 @@ const FoodDetails = () => {
     dispatch(getfoodDetails(id)); // تمرير الـ id لجلب بيانات العنصر
   }, [id, dispatch]);
 
-  const { foodItem, loading, error } = useSelector((state) => state?.food || {});
+  const { currentFood, loading, error } = useSelector((state) => state?.food || {});
 
   if (loading) return <div className="spinner-border" role="status"></div>;
 
   if (error) return <p style={{ color: 'red' }}>Error: {error}</p>;
 
-  if (!foodItem) return <p>No food details available.</p>;
+  if (!currentFood) return <p>No food details available.</p>;
 
   const AddCart=()=>{
 dispatch(CreateCart({
@@ -40,27 +40,23 @@ showToast(true)
         <div className='col-4'>
         <img
             style={{ width: '100%', height: '380px', borderRadius: '50px' , objectFit:'contain'}}
-            src={`http://localhost:5000/uploads/${foodItem.imgs}`} // عرض الصورة من البيانات
+            src={currentFood.image}
+            onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x380?text=No+Image'; }}
             className="card-img-top"
-            alt={foodItem.name}
+            alt={currentFood.name}
           />
         </div>
         <div className='col-6'>
         <div className="my-4">
-            <p><strong>Category:</strong> {foodItem.category}</p>  
-             <p><strong>Price:</strong> {foodItem.price}</p>  
-             <p><strong>description:</strong> {foodItem.description}</p>  
+            <p><strong>Category:</strong> {currentFood.category}</p>  
+             <p><strong>Price:</strong> {currentFood.price}</p>  
+             <p><strong>description:</strong> {currentFood.description}</p>  
           </div>          
           <div className='my-4  ' style={{display:'flex', flexWrap:'wrap'}}>
-  {foodItem?.ingredient?.length > 0
-    ? foodItem.ingredient[0]
-        .replace(/\[|\]/g, '')  
-        .split(' ')  
-        .map((item, index) => (
-          <p key={index} className='buttons'>
-            {item.trim()}  
-          </p>
-        ))
+  {Array.isArray(currentFood?.ingredients) && currentFood.ingredients.length > 0
+    ? currentFood.ingredients.map((item, index) => (
+        <p key={index} className='buttons'>{item}</p>
+      ))
     : <p>No ingredients available.</p>}
 </div>
 

@@ -47,6 +47,7 @@ const ProfilePage = () => {
                   {/* Profile Image */}
                   <img
                     src={currentUser.profileImage}
+                    onError={(e) => { e.currentTarget.src = 'https://placehold.co/120x120?text=User'; }}
                     alt="Profile"
                     className="rounded-circle img-thumbnail"
                     width="120"

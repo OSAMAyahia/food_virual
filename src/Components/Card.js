@@ -9,10 +9,6 @@ const Card = () => {
   const dispatch = useDispatch();
 
   const {foodItem,loading,error}= useSelector((state) => state?.food || {});
-  console.log("foods is",foodItem);
-  console.log("foods is",loading);
-  console.log("  foodItem.img",foodItem.imgs
-  );
   const [fav,setfav]=useState({})
 
   useEffect(() => { 
@@ -57,7 +53,8 @@ const Card = () => {
                     objectFit: 'cover',
                     height: '380px',  //230
                   }} 
-                  src={`http://localhost:5000/uploads/${i.imgs}`}
+                  src={i.image}
+                  onError={(e) => { e.currentTarget.src = 'https://placehold.co/380x230?text=No+Image'; }}
                  
                   className="card-img-top"
                   alt="Food Item"

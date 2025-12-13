@@ -43,9 +43,10 @@ const Cart = () => {
     width: '100px',
     objectFit: 'cover', // سيضمن أن الصورة ستملأ المساحة المخصصة دون تشويه
   }}
-  src={`http://localhost:5000/uploads/${item?.product?.imgs}`}
-  alt={item?.product?.name || 'Product'}
-/>
+  src={item?.product?.image || item?.image || 'https://placehold.co/100x90?text=No+Image'}
+  alt={item?.product?.name || item?.name || 'Product'}
+  onError={(e) => { e.currentTarget.src = 'https://placehold.co/100x90?text=No+Image'; }}
+/> 
 
                     <p style={{ textAlign: 'left', margin: '5px' }}>
                       {item?.product?.description || 'No description available.'}

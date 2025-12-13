@@ -3,20 +3,20 @@ import React, { useState } from "react";
 const CardCategory = () => {
   const [currentIndex, setCurrentIndex] = useState(0); // المؤشر الحالي
   const cards = [
-    "https://media-cdn.tripadvisor.com/media/photo-s/17/3b/9a/d2/burger-king.jpg",
-    "https://th.bing.com/th/id/OIP.2dhr5Ln6cMHIu9SmwE_uBgHaE7?rs=1&pid=ImgDetMain",
-    "https://th.bing.com/th/id/OIP.8h2TaHpc0W46ReOIqREdQAHaHa?w=600&h=600&rs=1&pid=ImgDetMain",
-    "https://th.bing.com/th/id/R.575ba79790622387c137de7809ed6986?rik=CYVFWKcLdHyFbg&pid=ImgRaw&r=0",
-    "https://www.andy-cooks.com/cdn/shop/articles/20230823074558-andy-20cooks-20-20singapore-20style-20noodles.jpg?v=1692873050",
-    "https://media-cdn.tripadvisor.com/media/photo-s/17/3b/9a/d2/burger-king.jpg",
-    "https://th.bing.com/th/id/OIP.8h2TaHpc0W46ReOIqREdQAHaHa?w=600&h=600&rs=1&pid=ImgDetMain",
-    "https://media-cdn.tripadvisor.com/media/photo-s/17/3b/9a/d2/burger-king.jpg",
-    "https://th.bing.com/th/id/OIP.2dhr5Ln6cMHIu9SmwE_uBgHaE7?rs=1&pid=ImgDetMain",
-    "https://th.bing.com/th/id/OIP.8h2TaHpc0W46ReOIqREdQAHaHa?w=600&h=600&rs=1&pid=ImgDetMain",
-    "https://th.bing.com/th/id/R.575ba79790622387c137de7809ed6986?rik=CYVFWKcLdHyFbg&pid=ImgRaw&r=0",
-    "https://www.andy-cooks.com/cdn/shop/articles/20230823074558-andy-20cooks-20-20singapore-20style-20noodles.jpg?v=1692873050",
-    "https://media-cdn.tripadvisor.com/media/photo-s/17/3b/9a/d2/burger-king.jpg",
-    "https://th.bing.com/th/id/OIP.8h2TaHpc0W46ReOIqREdQAHaHa?w=600&h=600&rs=1&pid=ImgDetMain",
+    "https://images.unsplash.com/photo-1606756790138-2617a898f412?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1605478371315-105910a68be9?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1604908554160-1d7a0d054a85?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1543332164-6b06f531ea49?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1604908177590-2995d4e0a3a5?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1523986371872-9d3ba2e2d21f?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1543353071-873f17a7a5c9?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1601050690037-31d1350d1cfa?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1544025167-0d3a66f1c5f8?w=400&h=230&fit=crop&q=80",
+    "https://images.unsplash.com/photo-1542831371-d531d36971e6?w=400&h=230&fit=crop&q=80",
   ];
 
   const cardsPerPage = 5; // عدد الكروت التي تظهر معًا
@@ -67,6 +67,7 @@ const CardCategory = () => {
               >
                 <img
                   src={card}
+                  onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x230?text=No+Image'; }}
                   alt={`Card ${index}`}
                   className="card-img-top"
                   style={{ width: "100%", objectFit: "cover", height: "230px" }}

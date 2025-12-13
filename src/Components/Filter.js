@@ -104,7 +104,8 @@ const Filter = () => {
                     <div className="card h-100">
                       <Link to={`/details/${i._id}`} style={{ textDecoration: "none" }}>
                         <img
-                          src={`http://localhost:5000/uploads/${i.imgs}`}
+                          src={i.image}
+                          onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x230?text=No+Image'; }}
                           className="card-img-top"
                           alt={i.name}
                           style={{
