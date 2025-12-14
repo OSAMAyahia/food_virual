@@ -13,7 +13,7 @@
   padding: 12px;
 }
 
-html, body.auth-no-scroll {
+body.auth-no-scroll {
   height: 100%;
   overflow: hidden;
 }
@@ -112,7 +112,7 @@ html, body.auth-no-scroll {
   .auth-page-container {
     padding: 8px;
   }
-  
+
   .auth-card .card-body {
     padding: 18px;
   }
@@ -125,12 +125,13 @@ html, body.auth-no-scroll {
   .auth-card p.text-muted {
     margin-bottom: 12px;
   }
-  
+
   /* Reduce Bootstrap large controls inside auth screens */
   .auth-page-container .form-control-lg {
     padding: 0.6rem 1rem;
     font-size: 1rem;
   }
+
   .auth-page-container .btn-lg {
     padding: 0.6rem 1rem;
     font-size: 1rem;
@@ -141,6 +142,7 @@ html, body.auth-no-scroll {
   .auth-page-container {
     padding: 6px;
   }
+
   .auth-card .card-body {
     padding: 14px;
   }
@@ -153,11 +155,12 @@ html, body.auth-no-scroll {
     padding: 9px 12px;
     font-size: 14px;
   }
-  
+
   .auth-page-container .form-control-lg {
     padding: 0.5rem 0.9rem;
     font-size: 0.95rem;
   }
+
   .auth-page-container .btn-lg {
     padding: 0.55rem 0.9rem;
     font-size: 0.95rem;
