@@ -16,6 +16,7 @@ const NavBarCom = ({islogged}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
+  const [searchSuggestions, setSearchSuggestions] = useState([]);
   const location = useLocation();
   const dispatch = useDispatch();
   
@@ -29,6 +30,22 @@ const NavBarCom = ({islogged}) => {
     const query = e.target.value;
     setSearchQuery(query);
     dispatch(setSearchTerm(query));
+    
+    // Show search suggestions if query length > 2
+    if (query.length > 2) {
+      // Filter food items based on search query
+      const filteredSuggestions = foodItems.filter(food => 
+        food.name.toLowerCase().includes(query.toLowerCase()) ||
+        food.category.toLowerCase().includes(query.toLowerCase()) ||
+        food.ingredients.some(ingredient => 
+          ingredient.toLowerCase().includes(query.toLowerCase())
+        )
+      ).slice(0, 5); // Limit to 5 suggestions
+      
+      setSearchSuggestions(filteredSuggestions);
+    } else {
+      setSearchSuggestions([]);
+    }
   };
 
   const clearSearchQuery = () => {
@@ -78,12 +95,16 @@ const NavBarCom = ({islogged}) => {
         {/* Search functionality */}
         <div className={`search-container ${showSearch ? 'active' : ''}`}>
           <div className="search-box">
+            <div className="search-icon-container">
+              <SearchIcon className="search-icon" />
+            </div>
             <input
               type="text"
               placeholder="Search food, category, or ingredients..."
               value={searchQuery}
               onChange={handleSearch}
               className="search-input"
+              autoComplete="off"
             />
             {searchQuery && (
               <button className="clear-search" onClick={clearSearchQuery}>
@@ -91,6 +112,50 @@ const NavBarCom = ({islogged}) => {
               </button>
             )}
           </div>
+          {searchQuery.length > 0 && (
+            <div className="search-suggestions">
+              {searchSuggestions.length > 0 ? (
+                <>
+                  <div className="suggestion-item search-header">
+                    <SearchIcon className="suggestion-icon" />
+                    <span>Search results for "{searchQuery}"</span>
+                  </div>
+                  <div className="suggestion-divider"></div>
+                  {searchSuggestions.map((food) => (
+                    <Link 
+                      key={food._id} 
+                      to={`/food/${food._id}`} 
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                      onClick={() => {
+                        setShowSearch(false);
+                        setIsMenuOpen(false);
+                        clearSearchQuery();
+                      }}
+                    >
+                      <div className="suggestion-item food-suggestion">
+                        <img src={food.image} alt={food.name} className="suggestion-food-image" />
+                        <div className="suggestion-food-info">
+                          <div className="suggestion-food-name">{food.name}</div>
+                          <div className="suggestion-food-category">{food.category}</div>
+                          <div className="suggestion-food-price">${food.price}</div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </>
+              ) : searchQuery.length > 2 ? (
+                <div className="suggestion-item no-results">
+                  <SearchIcon className="suggestion-icon" />
+                  <span>No results found for "{searchQuery}"</span>
+                </div>
+              ) : (
+                <div className="suggestion-item">
+                  <SearchIcon className="suggestion-icon" />
+                  <span>Continue typing to search...</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Hamburger menu for mobile */}
@@ -129,6 +194,74 @@ const NavBarCom = ({islogged}) => {
               <li className={location.pathname === '/contact' ? 'active' : ''}>Contact</li>
             </Link>
           </ul>
+          
+          {/* Mobile search input */}
+          {showSearch && (
+            <div className="mobile-search-container">
+              <div className="mobile-search-box">
+                <div className="search-icon-container">
+                  <SearchIcon className="search-icon" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search food, category, or ingredients..."
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  className="mobile-search-input"
+                  autoComplete="off"
+                />
+                {searchQuery && (
+                  <button className="clear-search" onClick={clearSearchQuery}>
+                    ×
+                  </button>
+                )}
+              </div>
+              {searchQuery.length > 0 && (
+                <div className="mobile-search-suggestions">
+                  {searchSuggestions.length > 0 ? (
+                    <>
+                      <div className="suggestion-item search-header">
+                        <SearchIcon className="suggestion-icon" />
+                        <span>Results for "{searchQuery}"</span>
+                      </div>
+                      <div className="suggestion-divider"></div>
+                      {searchSuggestions.map((food) => (
+                        <Link 
+                          key={food._id} 
+                          to={`/food/${food._id}`} 
+                          style={{ textDecoration: 'none', color: 'inherit' }}
+                          onClick={() => {
+                            setShowSearch(false);
+                            setIsMenuOpen(false);
+                            clearSearchQuery();
+                          }}
+                        >
+                          <div className="suggestion-item food-suggestion">
+                            <img src={food.image} alt={food.name} className="suggestion-food-image" />
+                            <div className="suggestion-food-info">
+                              <div className="suggestion-food-name">{food.name}</div>
+                              <div className="suggestion-food-category">{food.category}</div>
+                              <div className="suggestion-food-price">${food.price}</div>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </>
+                  ) : searchQuery.length > 2 ? (
+                    <div className="suggestion-item no-results">
+                      <SearchIcon className="suggestion-icon" />
+                      <span>No results for "{searchQuery}"</span>
+                    </div>
+                  ) : (
+                    <div className="suggestion-item">
+                      <SearchIcon className="suggestion-icon" />
+                      <span>Keep typing...</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
           
           <ul className="list">
             {/* Search icon */}

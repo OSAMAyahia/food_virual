@@ -76,6 +76,23 @@ body {
   color: #999;
 }
 
+.search-icon-container {
+  position: absolute;
+  left: 15px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.search-icon {
+  color: #999;
+  font-size: 18px;
+}
+
+.search-input {
+  padding-left: 45px;
+}
+
 .clear-search {
   position: absolute;
   right: 15px;
@@ -87,6 +104,111 @@ body {
   padding: 5px;
   border-radius: 50%;
   transition: all 0.3s ease;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  margin-top: 8px;
+  z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: #f8f9fa;
+  transform: translateX(5px);
+}
+
+.suggestion-icon {
+  color: #667eea;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.suggestion-category {
+  background: #667eea;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-right: 10px;
+  text-transform: uppercase;
+}
+
+.suggestion-divider {
+  height: 1px;
+  background: #e9ecef;
+  margin: 8px 0;
+}
+
+/* Food suggestion styles */
+.food-suggestion {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+.suggestion-food-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.suggestion-food-info {
+  flex: 1;
+}
+
+.suggestion-food-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.suggestion-food-category {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.suggestion-food-price {
+  color: #667eea;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.search-header {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #667eea;
+}
+
+.no-results {
+  color: #666;
+  font-style: italic;
 }
 
 .clear-search:hover {
@@ -372,4 +494,66 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Mobile Search Styles */
+.mobile-search-container {
+  width: 100%;
+  margin: 15px 0;
+  position: relative;
+}
+
+.mobile-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-search-input {
+  width: 100%;
+  padding: 12px 45px 12px 45px;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.95);
+  color: #333;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.mobile-search-input:focus {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.mobile-search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  margin-top: 8px;
+  z-index: 1000;
+  animation: slideDown 0.3s ease-out;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments for search */
+@media (max-width: 480px) {
+  .mobile-search-input {
+    font-size: 13px;
+    padding: 10px 40px 10px 40px;
+  }
+  
+  .mobile-search-suggestions {
+    max-height: 200px;
+  }
+  
+  .suggestion-item {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
 }

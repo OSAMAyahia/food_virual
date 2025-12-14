@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { 
@@ -13,8 +13,12 @@ import {
   Add, 
   Remove, 
   Favorite, 
-  Clear 
+  Clear,
+  LocalOffer,
+  Payment,
+  Schedule
 } from '@mui/icons-material';
+import { toast } from 'react-toastify';
 import './Cart.css';
 
 const Cart = () => {
@@ -22,6 +26,9 @@ const Cart = () => {
   const cartItems = useSelector(state => state.food?.cartItems || []);
   const totalPrice = useSelector(state => state.food?.totalPrice || 0);
   const totalQuantities = useSelector(state => state.food?.totalQuantities || 0);
+  const [promoCode, setPromoCode] = useState('');
+  const [discount, setDiscount] = useState(0);
+  const [deliveryTime, setDeliveryTime] = useState('30-45 min');
 
   const handleQuantityChange = (itemId, newQuantity) => {
     if (newQuantity <= 0) {
@@ -46,7 +53,37 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-    alert('Checkout functionality would be implemented here!');
+    if (cartItems.length === 0) {
+      toast.warning('Your cart is empty!');
+      return;
+    }
+    toast.success('Proceeding to checkout...');
+    // Here you would typically redirect to checkout page
+  };
+
+  const handlePromoCode = () => {
+    if (promoCode.toUpperCase() === 'SAVE10') {
+      setDiscount(0.1); // 10% discount
+      toast.success('Promo code applied! 10% discount added.');
+    } else if (promoCode.toUpperCase() === 'WELCOME20') {
+      setDiscount(0.2); // 20% discount
+      toast.success('Promo code applied! 20% discount added.');
+    } else if (promoCode.trim() !== '') {
+      toast.error('Invalid promo code. Try SAVE10 or WELCOME20.');
+      setDiscount(0);
+    }
+  };
+
+  const calculateDiscount = () => {
+    return totalPrice * discount;
+  };
+
+  const calculateFinalTotal = () => {
+    const subtotal = totalPrice;
+    const discountAmount = calculateDiscount();
+    const deliveryFee = 5;
+    const tax = (subtotal - discountAmount) * 0.08;
+    return subtotal - discountAmount + deliveryFee + tax;
   };
 
   if (!cartItems || cartItems.length === 0) {
@@ -146,11 +183,42 @@ const Cart = () => {
           <div className="order-summary">
             <h3>Order Summary</h3>
             
+            {/* Promo Code Section */}
+            <div className="promo-section">
+              <div className="promo-input-group">
+                <LocalOffer className="promo-icon" />
+                <input
+                  type="text"
+                  placeholder="Enter promo code"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                  className="promo-input"
+                />
+                <button onClick={handlePromoCode} className="promo-btn">
+                  Apply
+                </button>
+              </div>
+              <small className="promo-hint">Try: SAVE10 or WELCOME20</small>
+            </div>
+
+            {/* Delivery Time */}
+            <div className="delivery-info">
+              <Schedule className="delivery-icon" />
+              <span>Estimated delivery: {deliveryTime}</span>
+            </div>
+            
             <div className="summary-details">
               <div className="summary-row">
                 <span>Subtotal ({totalQuantities} items)</span>
                 <span>${totalPrice.toFixed(2)}</span>
               </div>
+              
+              {discount > 0 && (
+                <div className="summary-row discount">
+                  <span>Discount ({(discount * 100).toFixed(0)}%)</span>
+                  <span>-${calculateDiscount().toFixed(2)}</span>
+                </div>
+              )}
               
               <div className="summary-row">
                 <span>Delivery Fee</span>
@@ -158,17 +226,18 @@ const Cart = () => {
               </div>
               
               <div className="summary-row">
-                <span>Tax</span>
-                <span>${(totalPrice * 0.08).toFixed(2)}</span>
+                <span>Tax (8%)</span>
+                <span>${((totalPrice - calculateDiscount()) * 0.08).toFixed(2)}</span>
               </div>
               
               <div className="summary-row total">
                 <span>Total</span>
-                <span>${(totalPrice + 5 + (totalPrice * 0.08)).toFixed(2)}</span>
+                <span>${calculateFinalTotal().toFixed(2)}</span>
               </div>
             </div>
             
             <button className="checkout-btn" onClick={handleCheckout}>
+              <Payment />
               Proceed to Checkout
             </button>
             

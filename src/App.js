@@ -13,6 +13,7 @@ import SecurityWrapper from './Components/Hooks/SecurityWrapper';
 import Footer from './Components/Footer';
 import Contact from './Components/Contact';
 import Favorites from './Components/Favorites';
+import SearchResults from './Components/SearchResults';
  
 function App() {
   const [islogged]=ProtecRouteHook("off")
@@ -35,6 +36,7 @@ function App() {
   </Route>
    <Route path="*" element={<Navigate to="/" />} />
 </Routes>
+<SearchResults />
 <Footer />
     </Router>
       </div>

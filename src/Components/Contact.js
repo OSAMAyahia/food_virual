@@ -1,17 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Email, LocationOn, AccessTime, Facebook, Instagram, Twitter } from '@mui/icons-material';
+import { Phone, Email, LocationOn, AccessTime, Facebook, Instagram, Twitter, Send, CheckCircle } from '@mui/icons-material';
+import { toast } from 'react-toastify';
 import './Contact.css';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      toast.success('Message sent successfully! We\'ll get back to you soon.');
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      toast.error('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="contact-page">
       {/* Header Section */}
       <div className="contact-header">
         <div className="container">
-          <h1 className="contact-title">تواصل معنا</h1>
+          <h1 className="contact-title">Contact Us</h1>
           <p className="contact-subtitle">
-            نحن هنا للإجابة على جميع أسئلتك واستفساراتك
+            We're here to answer all your questions and inquiries
           </p>
         </div>
       </div>
@@ -23,15 +64,15 @@ const Contact = () => {
             {/* Contact Info */}
             <div className="col-lg-5 mb-4">
               <div className="contact-info-card">
-                <h3 className="info-title">معلومات التواصل</h3>
+                <h3 className="info-title">Contact Information</h3>
                 
                 <div className="contact-item">
                   <div className="contact-icon-wrapper">
                     <LocationOn className="contact-icon" />
                   </div>
                   <div className="contact-details">
-                    <h5>العنوان</h5>
-                    <p>القاهرة، مصر - شارع التحرير، برج الماسة، الطابق 15</p>
+                    <h5>Address</h5>
+                    <p>Cairo, Egypt - Tahrir Street, Diamond Tower, 15th Floor</p>
                   </div>
                 </div>
 
@@ -40,7 +81,7 @@ const Contact = () => {
                     <Phone className="contact-icon" />
                   </div>
                   <div className="contact-details">
-                    <h5>الهاتف</h5>
+                    <h5>Phone</h5>
                     <p>+20 123 456 7890</p>
                     <p>+20 111 222 3333</p>
                   </div>
@@ -51,7 +92,7 @@ const Contact = () => {
                     <Email className="contact-icon" />
                   </div>
                   <div className="contact-details">
-                    <h5>البريد الإلكتروني</h5>
+                    <h5>Email</h5>
                     <p>info@deliciousfood.com</p>
                     <p>support@deliciousfood.com</p>
                   </div>
@@ -62,15 +103,15 @@ const Contact = () => {
                     <AccessTime className="contact-icon" />
                   </div>
                   <div className="contact-details">
-                    <h5>ساعات العمل</h5>
-                    <p>السبت - الخميس: 9:00 صباحاً - 11:00 مساءً</p>
-                    <p>الجمعة: 1:00 مساءً - 12:00 منتصف الليل</p>
+                    <h5>Working Hours</h5>
+                    <p>Saturday - Thursday: 9:00 AM - 11:00 PM</p>
+                    <p>Friday: 1:00 PM - 12:00 AM</p>
                   </div>
                 </div>
 
                 {/* Social Media */}
                 <div className="social-media">
-                  <h5 className="social-title">تابعنا على</h5>
+                  <h5 className="social-title">Follow Us</h5>
                   <div className="social-links">
                     <a href="#" className="social-link facebook">
                       <Facebook />
@@ -89,57 +130,87 @@ const Contact = () => {
             {/* Contact Form */}
             <div className="col-lg-7 mb-4">
               <div className="contact-form-card">
-                <h3 className="form-title">أرسل رسالة</h3>
+                <h3 className="form-title">Send a Message</h3>
                 <p className="form-subtitle">
-                  هل لديك سؤال أو تعليق؟ نحن نحب أن نسمع منك!
+                  Have a question or comment? We'd love to hear from you!
                 </p>
 
-                <form className="contact-form">
-                  <div className="row">
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">الاسم الكامل</label>
+                {isSubmitted ? (
+                  <div className="success-message">
+                    <CheckCircle className="success-icon" />
+                    <h4>Message Sent Successfully!</h4>
+                    <p>Thank you for contacting us. We'll get back to you soon.</p>
+                  </div>
+                ) : (
+                  <form className="contact-form" onSubmit={handleSubmit}>
+                    <div className="row">
+                      <div className="col-md-6 mb-3">
+                        <label className="form-label">Full Name</label>
+                        <input 
+                          type="text" 
+                          name="name"
+                          className="form-control" 
+                          placeholder="Enter your full name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="col-md-6 mb-3">
+                        <label className="form-label">Email Address</label>
+                        <input 
+                          type="email" 
+                          name="email"
+                          className="form-control" 
+                          placeholder="Enter your email address"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mb-3">
+                      <label className="form-label">Subject</label>
                       <input 
                         type="text" 
+                        name="subject"
                         className="form-control" 
-                        placeholder="أدخل اسمك الكامل"
+                        placeholder="Subject of your message"
+                        value={formData.subject}
+                        onChange={handleInputChange}
                         required
                       />
                     </div>
-                    <div className="col-md-6 mb-3">
-                      <label className="form-label">البريد الإلكتروني</label>
-                      <input 
-                        type="email" 
+
+                    <div className="mb-3">
+                      <label className="form-label">Message</label>
+                      <textarea 
                         className="form-control" 
-                        placeholder="أدخل بريدك الإلكتروني"
+                        name="message"
+                        rows="5" 
+                        placeholder="Write your message here..."
+                        value={formData.message}
+                        onChange={handleInputChange}
                         required
-                      />
+                      ></textarea>
                     </div>
-                  </div>
 
-                  <div className="mb-3">
-                    <label className="form-label">الموضوع</label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      placeholder="موضوع رسالتك"
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-3">
-                    <label className="form-label">الرسالة</label>
-                    <textarea 
-                      className="form-control" 
-                      rows="5" 
-                      placeholder="اكتب رسالتك هنا..."
-                      required
-                    ></textarea>
-                  </div>
-
-                  <button type="submit" className="submit-btn">
-                    إرسال الرسالة
-                  </button>
-                </form>
+                    <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <span className="submitting">
+                          <div className="spinner"></div>
+                          Sending...
+                        </span>
+                      ) : (
+                        <span className="submit-text">
+                          <Send className="send-icon" />
+                          Send Message
+                        </span>
+                      )}
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </div>
@@ -148,7 +219,7 @@ const Contact = () => {
           <div className="row mt-5">
             <div className="col-12">
               <div className="map-card">
-                <h3 className="map-title">موقعنا</h3>
+                <h3 className="map-title">Our Location</h3>
                 <div className="map-container">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.123456789!2d31.2357!3d30.0444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDA2JzAwLjAiTiAzMcKwMTQnMDguNiJF!5e0!3m2!1sen!2seg!4v1234567890"
@@ -170,18 +241,30 @@ const Contact = () => {
       {/* FAQ Section */}
       <div className="contact-faq">
         <div className="container">
-          <h3 className="faq-title">الأسئلة الشائعة</h3>
+          <h3 className="faq-title">Frequently Asked Questions</h3>
           <div className="row">
             <div className="col-lg-6">
               <div className="faq-item">
-                <h5>كم يستغرق وقت التوصيل؟</h5>
-                <p>عادة ما يستغرق التوصيل من 30 إلى 45 دقيقة حسب الموقع.</p>
+                <h5>How long does delivery take?</h5>
+                <p>Delivery typically takes 30-45 minutes depending on your location.</p>
               </div>
             </div>
             <div className="col-lg-6">
               <div className="faq-item">
-                <h5>هل يوجد خدمة توصيل مجاني؟</h5>
-                <p>نعم، نوفر توصيل مجاني للطلبات التي تزيد عن 200 جنيه.</p>
+                <h5>Is there free delivery?</h5>
+                <p>Yes, we provide free delivery for orders over 200 EGP.</p>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="faq-item">
+                <h5>What payment methods do you accept?</h5>
+                <p>We accept cash on delivery, credit cards, and mobile payments.</p>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              <div className="faq-item">
+                <h5>Can I track my order?</h5>
+                <p>Yes, you can track your order in real-time through our website.</p>
               </div>
             </div>
           </div>
