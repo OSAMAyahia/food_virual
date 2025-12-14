@@ -20,10 +20,8 @@ const Signup = () => {
 
   useEffect(() => {
     document.body.classList.add('no-navbar-padding');
-    document.body.classList.add('auth-no-scroll');
     return () => {
       document.body.classList.remove('no-navbar-padding');
-      document.body.classList.remove('auth-no-scroll');
     };
   }, []);
 
@@ -73,10 +71,9 @@ const Signup = () => {
           className="d-flex align-items-center justify-content-center position-relative overflow-hidden auth-page-container"
           style={{
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            minHeight: '100vh',
-            maxHeight: '100vh',
-            height: '100vh',
-            overflow: 'hidden',
+            minHeight: '80vh',
+            height: 'auto',
+            padding: '20px 0',
           }}
         >
           {/* تأثيرات بصرية خفيفة */}
@@ -86,11 +83,12 @@ const Signup = () => {
           </div>
 
           <div 
-            className="col-12 col-md-10 col-lg-9 col-xl-7 position-relative z-index-2 mx-auto"
+            className="col-12 col-md-9 col-lg-7 col-xl-6 position-relative z-index-2 mx-auto"
           >
             <div className="card shadow-lg border-0 rounded-4 overflow-hidden auth-card">
               <div className="row g-0">
-                <div className="d-none">
+                {/* قسم المعلومات الجانبية (مخفٍ على الشاشات الصغيرة) */}
+                <div className="col-lg-5 d-none d-lg-block">
                   <div 
                     className="h-100 d-flex flex-column justify-content-center align-items-center p-5 text-white"
                     style={{ backgroundColor: '#667eea' }}
@@ -102,8 +100,9 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <div className="col-12">
-                  <div className="card-body p-4 p-lg-5">
+                {/* قسم النموذج */}
+                <div className="col-lg-7">
+                  <div className="card-body p-3 p-lg-4 bg-white rounded-end-4">
                     <h2 className="mb-3 text-center fw-bold text-dark">انضم إلينا!</h2>
                     <p className="text-center text-muted mb-4 small">
                       أنشئ حسابك لتبدأ رحلتك
