@@ -1,21 +1,29 @@
 /* Auth Pages Styling */
 .auth-container {
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0;
+  margin: 0;
   min-height: 100vh;
+  width: 100%;
 }
 
 /* Force viewport-fit and no page scroll on auth screens */
+/* Force viewport-fit and no page scroll on auth screens */
 .auth-page-container {
-  height: 100vh;
   min-height: 100vh;
-  overflow: hidden;
-  padding: 12px;
+  width: 100%;
+  padding: 20px;
+  overflow-y: auto;
+  /* Enable scrolling for content if needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body.auth-no-scroll {
-  height: 100%;
-  overflow: hidden;
+  /* Use normal scrolling behavior */
+  height: auto;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .auth-card {
@@ -24,7 +32,14 @@ body.auth-no-scroll {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 100%;
-  max-width: 504px;
+  max-width: 555px;
+  /* Increased by ~10% from 504px */
+}
+
+/* Condense margins inside the form to reduce height */
+.auth-card .mb-3,
+.auth-card .mb-4 {
+  margin-bottom: 0.8rem !important;
 }
 
 .auth-card .card-body {
@@ -48,14 +63,17 @@ body.auth-no-scroll {
 .auth-card .form-label {
   color: #34495e;
   font-weight: 600;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  /* Reduced from 8px */
+  font-size: 0.9rem;
 }
 
 .auth-card .form-control {
   border: 2px solid #ecf0f1;
   border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 15px;
+  padding: 8px 12px;
+  /* Reduced from 10px 14px */
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
@@ -157,13 +175,21 @@ body.auth-no-scroll {
   }
 
   .auth-page-container .form-control-lg {
-    padding: 0.5rem 0.9rem;
-    font-size: 0.95rem;
+    padding: 0.35rem 0.75rem;
+    /* Further reduced */
+    font-size: 0.9rem;
   }
 
   .auth-page-container .btn-lg {
-    padding: 0.55rem 0.9rem;
-    font-size: 0.95rem;
+    padding: 0.4rem 0.75rem;
+    /* Further reduced */
+    font-size: 0.9rem;
+  }
+
+  /* Compact spacing on mobile */
+  .auth-card .mb-3,
+  .auth-card .mb-4 {
+    margin-bottom: 0.5rem !important;
   }
 }
 

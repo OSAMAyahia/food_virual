@@ -61,29 +61,29 @@ const Login = () => {
       <div className="position-relative" style={{ top: 0, left: 0, right: 0 }}>
         <ToastContainer position="top-right" />
 
-        <div 
-          className="d-flex align-items-center justify-content-center position-relative overflow-hidden auth-page-container"
+        <div
+          className="d-flex align-items-center justify-content-center auth-page-container"
           style={{
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            minHeight: '80vh',
-            height: 'auto',
-            padding: '20px 0',
+            minHeight: '100vh',
+            width: '100%',
+            padding: '20px',
           }}
         >
-          {/* تأثيرات بصرية خفيفة */}
-          <div className="position-absolute top-0 start-0 w-100 h-100">
-            <div className="position-absolute top-0 start-0 translate-middle bg-white opacity-10 rounded-circle" style={{ width: '300px', height: '300px', top: '10%', left: '-10%' }}></div>
-            <div className="position-absolute bottom-0 end-0 translate-middle bg-white opacity-10 rounded-circle" style={{ width: '250px', height: '250px', bottom: '10%', right: '-10%' }}></div>
+          {/* Decorative Circles */}
+          <div className="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style={{ pointerEvents: 'none' }}>
+            <div className="position-absolute bg-white opacity-10 rounded-circle" style={{ width: '300px', height: '300px', top: '-50px', left: '-50px', opacity: 0.1 }}></div>
+            <div className="position-absolute bg-white opacity-10 rounded-circle" style={{ width: '200px', height: '200px', bottom: '-50px', right: '-50px', opacity: 0.1 }}></div>
           </div>
 
-          <div 
+          <div
             className="col-12 col-md-9 col-lg-7 col-xl-6 position-relative z-index-2 mx-auto"
           >
             <div className="card shadow-lg border-0 rounded-4 overflow-hidden auth-card">
               <div className="row g-0">
                 {/* قسم المعلومات الجانبية (مخفٍ على الشاشات الصغيرة) */}
                 <div className="col-lg-5 d-none d-lg-block">
-                  <div 
+                  <div
                     className="h-100 d-flex flex-column justify-content-center align-items-center p-5 text-white"
                     style={{ backgroundColor: '#667eea' }}
                   >
