@@ -186,9 +186,25 @@ const NavBarCom = ({ islogged }) => {
             </Link>
           )}
 
-          <div className="hamburger" onClick={toggleMenu} role="button" aria-label="Toggle menu">
-            {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
-          </div>
+         <div 
+  className="hamburger" 
+  onClick={toggleMenu}
+  onTouchStart={(e) => {
+    // منع التأخير في الضغط على الموبايل
+    e.currentTarget.style.transform = 'scale(0.95)';
+  }}
+  onTouchEnd={(e) => {
+    e.currentTarget.style.transform = 'scale(1)';
+  }}
+  role="button" 
+  aria-label="Toggle menu"
+  style={{ 
+    WebkitTapHighlightColor: 'transparent',
+    touchAction: 'manipulation' // تحسين استجابة اللمس
+  }}
+>
+  {isMenuOpen ? <CloseIcon style={{ pointerEvents: 'none' }} /> : <MenuIcon  style={{ pointerEvents: 'none' }} />}
+</div>
         </div>
 
         {/* Menus */}
