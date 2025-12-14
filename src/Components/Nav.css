@@ -1,108 +1,375 @@
-
-body{margin: 0px;}
-
-.navbar{display: flex;
-/* margin: 8px; */
-/* padding: 3px; */
-width: 90%;
-justify-content:  space-between;}
-
-.list{
-    list-style: none;
-    gap: 15px;
-    /* margin: 0px; */
-    display: flex;
-    align-items: center;
+/* Navigation Bar Styles */
+body {
+  margin: 0;
+  padding-top: 80px; /* مساحة للـ navbar الثابت */
 }
 
-.container{
-    justify-content: space-between;
-
-}
-
-.food{font-weight: 800;
-font-size: 25px;}
-
-
-.imgs {
-    width: 100%;
-     height: auto; /* تحافظ على النسبة بين العرض والطول */
-    object-fit: cover; /* تجعل الصورة تتناسب داخل الحاوية */
-    max-width: 100%; /* تمنع الصورة من تجاوز الحاوية */
-  }
-
-  /* إعدادات عامة */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999; /* تم رفع الـ z-index لمنع التداخل */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-container img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+.food {
+  font-weight: 800;
+  font-size: 28px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Search Container */
+.search-container {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 2rem;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 45px 12px 15px;
+  border: none;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.9);
+  color: #333;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.search-input::placeholder {
+  color: #999;
+}
+
+.clear-search {
+  position: absolute;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.clear-search:hover {
+  color: #666;
+  background: rgba(0,0,0,0.1);
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  z-index: 10000; /* أعلى من الـ navbar نفسه */
+  position: relative;
+}
+
+.hamburger:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  z-index: 9998;
+}
+
+.list {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.list li {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+  z-index: 9997;
+}
+
+.list li:hover {
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+.list li.active {
+  background: rgba(255,255,255,0.2);
+  font-weight: 600;
+}
+
+.list li.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: #f39c12;
+  border-radius: 1px;
+}
+
+/* أيقونات القائمة */
+.list li svg {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.list li:hover svg {
+  transform: scale(1.1);
+}
+
+/* Badge for cart and favorites */
+.list li .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff6b6b;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* معلومات المستخدم */
+.user-info {
+  margin-left: 20px;
+  padding: 8px 15px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 20px;
+  font-size: 14px;
+  white-space: nowrap;
+  position: relative;
+  z-index: 9996;
+}
+
+/* Search icon for mobile */
+.search-icon-mobile {
+  display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 1300px) {
+  .navbar {
+    padding: 12px 20px;
+    z-index: 9999; /* تأكد من أن الـ z-index مرتفع في الشاشات الصغيرة */
   }
   
-  .logo-container {
-    display: flex;
-    align-items: center;
+  .search-container {
+    display: none;
+  }
+  
+  .search-icon-mobile {
+    display: block !important;
   }
   
   .hamburger {
-    display: none;
-    cursor: pointer;
+    display: block;
+    order: 2;
   }
   
   .menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: 0 0 20px 20px;
+    gap: 0;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 9998; /* أقل من الـ hamburger لكن أعلى من المحتوى */
+    margin-top: 1px; /* مسافة صغيرة لتجنب التداخل المباشر */
+  }
+  
+  .menu.open {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    animation: slideDown 0.3s ease;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .list {
-    display: flex;
-    list-style: none;
-    /* gap: 15px; */
-    margin-right:120px
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    text-align: center;
   }
   
   .list li {
-    cursor: pointer;
+    padding: 15px 20px;
+    margin: 5px 0;
+    width: 100%;
+    border-radius: 12px;
+    position: relative;
+    z-index: 9997;
   }
   
-  /* إعدادات الشاشة الصغيرة */
-  @media (max-width:1300px) {
-    .hamburger {
-      display: block;
-    }
-  
-    .menu {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      right: 0;
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    }
-  
-    .menu.open {
-      display: flex;
-    }
-  
-    .list {
-      flex-direction: column;
-      gap: 10px;
-      text-align: center;
-    }
+  .list li:hover {
+    background: rgba(255,255,255,0.15);
   }
   
-
-  /* التأثير على العناصر عند الوقوف عليها */
-/* التأثير على العناصر النشطة */
-.navbar .menu .list li.active {
-  border-bottom: 3px solid lightcoral; /* إضافة خط أسفل العنصر النشط */
-  font-weight: bold; /* لتكبير الخط وتوضيحه */
-  color: lightcoral; /* تغيير اللون إذا أردت */
+  .list li.active {
+    background: rgba(255,255,255,0.2);
+  }
+  
+  .list li.active::after {
+    display: none;
+  }
+  
+  .user-info {
+    margin-left: 0;
+    margin-top: 15px;
+    text-align: center;
+    position: relative;
+    z-index: 9996;
+  }
 }
 
+/* Mobile search overlay */
+.search-container.active {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  z-index: 9999;
+  max-width: none;
+  margin: 0;
+}
 
+/* شاشات صغيرة جداً */
+@media (max-width: 576px) {
+  .navbar {
+    padding: 10px 15px;
+    z-index: 9999;
+  }
+  
+  .food {
+    font-size: 24px;
+  }
+  
+  .logo-container img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .menu {
+    padding: 15px;
+    z-index: 9998;
+  }
+  
+  .list li {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+}
+
+/* تأكد من أن المحتوى لا يتداخل مع الـ navbar */
+.main-content {
+  position: relative;
+  z-index: 1;
+  background: white;
+}
+
+/* تعديل على الروابط لمنع التداخل */
+.list a {
+  position: relative;
+  z-index: 9995;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* تأثير overlay عند فتح القائمة */
+.menu-overlay {
+  position: fixed;
+  top: 80px; /* بعد الـ navbar */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 9997; /* بين الـ navbar والـ menu */
+  display: none;
+}
+
+.menu-overlay.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
