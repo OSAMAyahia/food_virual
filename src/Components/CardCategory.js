@@ -34,13 +34,13 @@ const CardCategory = () => {
     const handleResize = () => {
       let newItemsToShow;
       if (window.innerWidth <= 480) {
-        newItemsToShow = 2; // Small mobile: 2 cards
+        newItemsToShow = 1; // Small mobile: 1 card
       } else if (window.innerWidth <= 768) {
         newItemsToShow = 2; // Mobile: 2 cards
       } else if (window.innerWidth <= 1024) {
         newItemsToShow = 3; // Tablet: 3 cards
       } else {
-        newItemsToShow = 3; // Desktop: 3 cards
+        newItemsToShow = 4; // Desktop: 4 cards
       }
       setItemsToShow(newItemsToShow);
       // Reset current index if it's out of bounds with new items to show

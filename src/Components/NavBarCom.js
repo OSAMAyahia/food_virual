@@ -104,10 +104,10 @@ const NavBarCom = ({ islogged }) => {
   return (
     <>
       <nav className="navbar">
-        <div className="logo-container">
+        <Link to="/" className="logo-container" onClick={() => setIsMenuOpen(false)}>
           <img src={logo} alt="Logo" width="45px" />
           <div className="food">Delicious</div>
-        </div>
+        </Link>
 
         {/* Search functionality */}
         <div className={`search-container ${showSearch ? 'active' : ''}`}>
