@@ -75,6 +75,10 @@ body.auth-no-scroll {
   /* Reduced from 10px 14px */
   font-size: 14px;
   transition: all 0.3s ease;
+  color: #333 !important;
+  /* Force dark text color for visibility */
+  background-color: #fff !important;
+  /* Force white background */
 }
 
 .auth-card .form-control:focus {

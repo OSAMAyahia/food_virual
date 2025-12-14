@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { Favorite, FavoriteBorder, ShoppingCart } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { addToFavorites, removeFromFavorites, addToCart } from '../Redux/Root';
@@ -12,7 +13,7 @@ const Categories = () => {
   const foodItems = useSelector(state => state.food?.foodItem || []);
   const favoriteItems = useSelector(state => state.food?.favoriteItems || []);
   const cartItems = useSelector(state => state.food?.cartItems || []);
-  
+
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [categories, setCategories] = useState([]);
   const [filteredFoods, setFilteredFoods] = useState([]);
@@ -52,7 +53,17 @@ const Categories = () => {
     return favoriteItems.some(item => item._id === foodId);
   };
 
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector(state => state.user?.isAuthenticated);
+
+  // ... existing logic ...
+
   const toggleFavorite = (food) => {
+    if (!isAuthenticated) {
+      toast.info('Please login to manage favorites');
+      navigate('/login');
+      return;
+    }
     if (isFavorite(food._id)) {
       dispatch(removeFromFavorites(food._id));
     } else {
@@ -61,6 +72,11 @@ const Categories = () => {
   };
 
   const handleAddToCart = (food) => {
+    if (!isAuthenticated) {
+      toast.info('Please login to add items to cart');
+      navigate('/login');
+      return;
+    }
     dispatch(addToCart(food));
   };
 
@@ -94,30 +110,30 @@ const Categories = () => {
         {filteredFoods.map((food) => (
           <div key={food._id} className="food-card">
             <div className="food-image-container">
-              <img 
-                src={food.image} 
+              <img
+                src={food.image}
                 alt={food.name}
                 className="food-image"
                 onError={(e) => {
                   e.currentTarget.src = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop';
                 }}
               />
-              <button 
+              <button
                 className={`favorite-btn ${isFavorite(food._id) ? 'active' : ''}`}
                 onClick={() => toggleFavorite(food)}
               >
                 {isFavorite(food._id) ? <Favorite /> : <FavoriteBorder />}
               </button>
             </div>
-            
+
             <div className="food-content">
               <div className="food-header">
                 <h3 className="food-name">{food.name}</h3>
                 <span className="food-category">{food.category}</span>
               </div>
-              
+
               <p className="food-description">{food.description}</p>
-              
+
               <div className="food-meta">
                 <div className="food-rating">
                   <span className="rating-stars">{'★'.repeat(Math.floor(food.rating))}</span>
@@ -125,10 +141,10 @@ const Categories = () => {
                 </div>
                 <div className="food-time">{food.preparationTime}</div>
               </div>
-              
+
               <div className="food-footer">
                 <div className="food-price">
-                  ${food.price}
+                  {food.price} SAR
                   {food.discount > 0 && (
                     <span className="discount-badge">-{food.discount}%</span>
                   )}
@@ -137,7 +153,7 @@ const Categories = () => {
                   <Link to={`/details/${food._id}`} className="view-details-btn">
                     View Details
                   </Link>
-                  <button 
+                  <button
                     className="add-to-cart-btn"
                     onClick={() => handleAddToCart(food)}
                   >

@@ -37,10 +37,8 @@ const CardCategory = () => {
 
   // Responsive cards per page based on screen size
   const getCardsPerPage = () => {
-    if (window.innerWidth <= 480) return 1; // Very small screens
-    if (window.innerWidth <= 768) return 2; // Mobile
-    if (window.innerWidth <= 1024) return 3; // Tablet
-    return 5; // Desktop
+    if (window.innerWidth < 768) return 1; // Mobile phones
+    return 2; // Show 2 cards on everything else (Tablet/Desktop)
   };
 
   const [cardsPerPage, setCardsPerPage] = useState(getCardsPerPage());
@@ -50,6 +48,8 @@ const CardCategory = () => {
   const handleNext = () => {
     if (currentIndex + step < cards.length - cardsPerPage + 1) {
       setCurrentIndex(currentIndex + step);
+    } else {
+      setCurrentIndex(0); // Loop to start
     }
   };
 
@@ -57,6 +57,8 @@ const CardCategory = () => {
   const handlePrev = () => {
     if (currentIndex - step >= 0) {
       setCurrentIndex(currentIndex - step);
+    } else {
+      setCurrentIndex(Math.max(0, cards.length - (cardsPerPage || 1))); // Loop to end
     }
   };
 
@@ -68,7 +70,6 @@ const CardCategory = () => {
         <button
           className="card-category-nav-btn"
           onClick={handlePrev}
-          disabled={currentIndex === 0}
         >
           &lt;
         </button>
@@ -78,18 +79,18 @@ const CardCategory = () => {
           <div
             className="card-category-track"
             style={{
-              transform: `translateX(-${(currentIndex * 100) / cardsPerPage}%)`,
+              transform: `translateX(-${(currentIndex * 100) / cards.length}%)`,
               transition: "transform 0.5s ease-in-out",
               width: `${(cards.length * 100) / cardsPerPage}%`,
             }}
           >
             {cards.map((card, index) => (
-              <div 
+              <div
                 className="card-category-item"
-                style={{ width: `${100 / cardsPerPage}%` }}
+                style={{ width: `${100 / cards.length}%` }}
                 key={index}
               >
-                <Link 
+                <Link
                   to={`/dishes?category=${encodeURIComponent(card.title)}`}
                   className="card-category-link"
                 >
@@ -114,7 +115,6 @@ const CardCategory = () => {
         <button
           className="card-category-nav-btn"
           onClick={handleNext}
-          disabled={currentIndex + cardsPerPage >= cards.length}
         >
           &gt;
         </button>

@@ -154,7 +154,7 @@ const NavBarCom = ({ islogged }) => {
                         <div className="suggestion-food-info">
                           <div className="suggestion-food-name">{food.name}</div>
                           <div className="suggestion-food-category">{food.category}</div>
-                          <div className="suggestion-food-price">${food.price}</div>
+                          <div className="suggestion-food-price">{food.price} SAR</div>
                         </div>
                       </div>
                     </Link>
@@ -186,25 +186,25 @@ const NavBarCom = ({ islogged }) => {
             </Link>
           )}
 
-         <div 
-  className="hamburger" 
-  onClick={toggleMenu}
-  onTouchStart={(e) => {
-    // منع التأخير في الضغط على الموبايل
-    e.currentTarget.style.transform = 'scale(0.95)';
-  }}
-  onTouchEnd={(e) => {
-    e.currentTarget.style.transform = 'scale(1)';
-  }}
-  role="button" 
-  aria-label="Toggle menu"
-  style={{ 
-    WebkitTapHighlightColor: 'transparent',
-    touchAction: 'manipulation' // تحسين استجابة اللمس
-  }}
->
-  {isMenuOpen ? <CloseIcon style={{ pointerEvents: 'none' }} /> : <MenuIcon  style={{ pointerEvents: 'none' }} />}
-</div>
+          <div
+            className="hamburger"
+            onClick={toggleMenu}
+            onTouchStart={(e) => {
+              // منع التأخير في الضغط على الموبايل
+              e.currentTarget.style.transform = 'scale(0.95)';
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+            role="button"
+            aria-label="Toggle menu"
+            style={{
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'manipulation' // تحسين استجابة اللمس
+            }}
+          >
+            {isMenuOpen ? <CloseIcon style={{ pointerEvents: 'none' }} /> : <MenuIcon style={{ pointerEvents: 'none' }} />}
+          </div>
         </div>
 
         {/* Menus */}
@@ -222,17 +222,17 @@ const NavBarCom = ({ islogged }) => {
             </li>
 
 
-            
-            
-      
-            
-            { isAuthenticated && (
-                <li className={location.pathname === '/orders' ? 'active' : ''}>
-                  <Link to="/order" className="nav-link" onClick={() => setIsMenuOpen(false)}>
-                    Orders
-                  </Link>
-                </li>
-              )}
+
+
+
+
+            {isAuthenticated && (
+              <li className={location.pathname === '/orders' ? 'active' : ''}>
+                <Link to="/order" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+                  Orders
+                </Link>
+              </li>
+            )}
 
             <li className={location.pathname === '/contact' ? 'active' : ''}>
               <Link to="/contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>
@@ -298,7 +298,7 @@ const NavBarCom = ({ islogged }) => {
                             <div className="suggestion-food-info">
                               <div className="suggestion-food-name">{food.name}</div>
                               <div className="suggestion-food-category">{food.category}</div>
-                              <div className="suggestion-food-price">${food.price}</div>
+                              <div className="suggestion-food-price">{food.price} SAR</div>
                             </div>
                           </div>
                         </Link>
@@ -382,9 +382,9 @@ const NavBarCom = ({ islogged }) => {
               </li>
             )}
 
-            
-            
-       
+
+
+
           </ul>
 
 

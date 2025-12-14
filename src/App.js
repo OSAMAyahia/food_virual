@@ -20,35 +20,44 @@ import Checkout from './Components/Checkout';
 import OrderConfirmation from './Components/OrderConfirmation';
 import ConditionalNavBar from './Components/ConditionalNavBar';
 import ConditionalFooter from './Components/ConditionalFooter';
- 
+import { useDispatch } from 'react-redux';
+import { checkAuth } from './Redux/Food/Security';
+import { useEffect } from 'react';
+
 function App() {
-  const [islogged]=ProtecRouteHook("off")
-  console.log('the state of loged user is' , islogged)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  const [islogged] = ProtecRouteHook("off")
+  console.log('the state of loged user is', islogged)
   return (
     <div className="App  ">
-        <Router>
-          <ConditionalNavBar islogged={islogged}/>
+      <Router>
+        <ConditionalNavBar islogged={islogged} />
         <Routes>
-    <Route index element={<HomeS islogged={islogged}/>} />
-    <Route path="/login" element={<Login   />} />
-    <Route path="/signup" element={<Signup />} />
-    <Route path="/contact" element={<Contact />} />
-  <Route element={<SecurityWrapper islogged={islogged} route={'/login'} />}>
-    <Route path="/details/:id" element={<FoodDetails />} />
-    <Route path="/cart" element={<Cart />} />
-    <Route path="/favorites" element={<Favorites />} />
-    <Route path="/dishes" element={<Categories />} />
-    <Route path="/profile" element={<ProfilePage />} />
-    <Route path="/order" element={<OrdersPage />} />
-    <Route path="/checkout" element={<Checkout />} />
-    <Route path="/order-confirmation" element={<OrderConfirmation />} />
-  </Route>
-   <Route path="*" element={<Navigate to="/" />} />
-</Routes>
-<SearchResults />
-<ConditionalFooter />
-    </Router>
-      </div>
+          <Route index element={<HomeS islogged={islogged} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/details/:id" element={<FoodDetails />} />
+          <Route path="/dishes" element={<Categories />} />
+          <Route element={<SecurityWrapper islogged={islogged} route={'/login'} />}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/order" element={<OrdersPage />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <SearchResults />
+        <ConditionalFooter />
+      </Router>
+    </div>
   );
 }
 

@@ -32,7 +32,7 @@ const mockUsers = [
 export const Createuser = createAsyncThunk('user/create', async (body) => {
   // محاكاة تأخير الشبكة
   await new Promise(resolve => setTimeout(resolve, 1000));
-  
+
   const newUser = {
     id: mockUsers.length + 1,
     name: body.name,
@@ -45,8 +45,13 @@ export const Createuser = createAsyncThunk('user/create', async (body) => {
     role: "user",
     createdAt: new Date().toISOString()
   };
-  
+
   mockUsers.push(newUser);
+
+  // Auto-login after creation (Save to LocalStorage)
+  localStorage.setItem('user', JSON.stringify(newUser));
+  localStorage.setItem('token', 'mock-jwt-token-' + newUser.id);
+
   return newUser;
 });
 
@@ -54,17 +59,17 @@ export const Createuser = createAsyncThunk('user/create', async (body) => {
 export const login = createAsyncThunk('user/login', async (body) => {
   // محاكاة تأخير الشبكة
   await new Promise(resolve => setTimeout(resolve, 1000));
-  
+
   const user = mockUsers.find(u => u.email === body.email && u.password === body.password);
-  
+
   if (!user) {
     throw new Error("بيانات تسجيل الدخول غير صحيحة");
   }
-  
+
   // تخزين بيانات المستخدم في localStorage
   localStorage.setItem('user', JSON.stringify(user));
   localStorage.setItem('token', 'mock-jwt-token-' + user.id);
-  
+
   return {
     user: user,
     token: 'mock-jwt-token-' + user.id,
@@ -105,6 +110,8 @@ const userSlises = createSlice({
       })
       .addCase(Createuser.fulfilled, (state, action) => {
         state.loading = false;
+        state.currentUser = action.payload; // Auto login
+        state.isAuthenticated = true;
         state.userItems = action.payload;
         state.err = null;
       })

@@ -15,7 +15,8 @@ const mockFoodData = [
     preparationTime: "20-25 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 800, protein: 35, carbs: 90, fat: 30 }
   },
   {
     _id: "2",
@@ -30,7 +31,8 @@ const mockFoodData = [
     preparationTime: "15-20 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 10
+    discount: 10,
+    nutrition: { calories: 650, protein: 40, carbs: 50, fat: 35 }
   },
   {
     _id: "3",
@@ -45,7 +47,8 @@ const mockFoodData = [
     preparationTime: "25-30 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 550, protein: 20, carbs: 70, fat: 25 }
   },
   {
     _id: "4",
@@ -60,7 +63,8 @@ const mockFoodData = [
     preparationTime: "10-15 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 15
+    discount: 15,
+    nutrition: { calories: 450, protein: 30, carbs: 40, fat: 20 }
   },
   {
     _id: "5",
@@ -75,7 +79,8 @@ const mockFoodData = [
     preparationTime: "10-12 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 320, protein: 25, carbs: 10, fat: 15 }
   },
   {
     _id: "6",
@@ -90,7 +95,8 @@ const mockFoodData = [
     preparationTime: "30-35 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 20
+    discount: 20,
+    nutrition: { calories: 350, protein: 45, carbs: 5, fat: 12 }
   },
   {
     _id: "7",
@@ -105,7 +111,8 @@ const mockFoodData = [
     preparationTime: "40-45 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 750, protein: 40, carbs: 90, fat: 25 }
   },
   {
     _id: "8",
@@ -120,7 +127,8 @@ const mockFoodData = [
     preparationTime: "5-8 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 5
+    discount: 5,
+    nutrition: { calories: 450, protein: 8, carbs: 45, fat: 28 }
   },
   {
     _id: "9",
@@ -135,7 +143,8 @@ const mockFoodData = [
     preparationTime: "15-20 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 300, protein: 18, carbs: 40, fat: 8 }
   },
   {
     _id: "10",
@@ -150,7 +159,8 @@ const mockFoodData = [
     preparationTime: "25-30 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 600, protein: 55, carbs: 10, fat: 38 }
   },
   {
     _id: "11",
@@ -165,7 +175,8 @@ const mockFoodData = [
     preparationTime: "20-25 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 10
+    discount: 10,
+    nutrition: { calories: 500, protein: 35, carbs: 45, fat: 18 }
   },
   {
     _id: "12",
@@ -180,7 +191,8 @@ const mockFoodData = [
     preparationTime: "30-35 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 550, protein: 25, carbs: 65, fat: 20 }
   },
   {
     _id: "13",
@@ -195,7 +207,8 @@ const mockFoodData = [
     preparationTime: "35-40 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 15
+    discount: 15,
+    nutrition: { calories: 420, protein: 38, carbs: 8, fat: 22 }
   },
   {
     _id: "14",
@@ -210,7 +223,8 @@ const mockFoodData = [
     preparationTime: "15-20 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 380, protein: 22, carbs: 40, fat: 14 }
   },
   {
     _id: "15",
@@ -225,7 +239,8 @@ const mockFoodData = [
     preparationTime: "20-25 minutes",
     isAvailable: true,
     isFeatured: true,
-    discount: 10
+    discount: 10,
+    nutrition: { calories: 480, protein: 18, carbs: 65, fat: 16 }
   },
   {
     _id: "16",
@@ -240,7 +255,8 @@ const mockFoodData = [
     preparationTime: "20-25 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 520, protein: 25, carbs: 45, fat: 28 }
   },
   {
     _id: "17",
@@ -255,7 +271,8 @@ const mockFoodData = [
     preparationTime: "45-50 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 600, protein: 28, carbs: 35, fat: 38 }
   },
   {
     _id: "18",
@@ -270,7 +287,8 @@ const mockFoodData = [
     preparationTime: "25-30 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 15
+    discount: 15,
+    nutrition: { calories: 480, protein: 32, carbs: 25, fat: 22 }
   },
   {
     _id: "19",
@@ -285,7 +303,8 @@ const mockFoodData = [
     preparationTime: "15-20 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 0
+    discount: 0,
+    nutrition: { calories: 650, protein: 35, carbs: 75, fat: 24 }
   },
   {
     _id: "20",
@@ -300,7 +319,8 @@ const mockFoodData = [
     preparationTime: "12-15 minutes",
     isAvailable: true,
     isFeatured: false,
-    discount: 10
+    discount: 10,
+    nutrition: { calories: 450, protein: 15, carbs: 55, fat: 20 }
   }
 ];
 
@@ -342,38 +362,38 @@ const foodSlice = createSlice({
     addToCart: (state, action) => {
       const { _id, name, price, image } = action.payload;
       const existingItem = state.cartItems.find(item => item._id === _id);
-      
+
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
-        state.cartItems.push({ 
-          _id, 
-          name, 
-          price, 
+        state.cartItems.push({
+          _id,
+          name,
+          price,
           image,
-          quantity: 1 
+          quantity: 1
         });
       }
-      
+
       state.totalQuantities += 1;
       state.totalPrice += price;
     },
-    
+
     removeFromCart: (state, action) => {
       const itemId = action.payload;
       const item = state.cartItems.find(item => item._id === itemId);
-      
+
       if (item) {
         state.totalQuantities -= item.quantity;
         state.totalPrice -= (item.price * item.quantity);
         state.cartItems = state.cartItems.filter(item => item._id !== itemId);
       }
     },
-    
+
     updateQuantity: (state, action) => {
       const { _id, quantity } = action.payload;
       const item = state.cartItems.find(item => item._id === _id);
-      
+
       if (item) {
         const quantityDiff = quantity - item.quantity;
         state.totalQuantities += quantityDiff;
@@ -381,7 +401,7 @@ const foodSlice = createSlice({
         item.quantity = quantity;
       }
     },
-    
+
     clearCart: (state) => {
       state.cartItems = [];
       state.totalQuantities = 0;
@@ -392,12 +412,12 @@ const foodSlice = createSlice({
     addToFavorites: (state, action) => {
       const item = action.payload;
       const existingFavorite = state.favoriteItems.find(fav => fav._id === item._id);
-      
+
       if (!existingFavorite) {
         state.favoriteItems.push(item);
       }
     },
-    
+
     removeFromFavorites: (state, action) => {
       const itemId = action.payload;
       state.favoriteItems = state.favoriteItems.filter(item => item._id !== itemId);
@@ -408,14 +428,14 @@ const foodSlice = createSlice({
       state.searchTerm = action.payload;
       // Filter items based on search term
       if (state.foodItem && state.foodItem.length > 0) {
-        state.filteredItems = state.foodItem.filter(item => 
+        state.filteredItems = state.foodItem.filter(item =>
           item.name.toLowerCase().includes(action.payload.toLowerCase()) ||
           item.description.toLowerCase().includes(action.payload.toLowerCase()) ||
           item.category.toLowerCase().includes(action.payload.toLowerCase())
         );
       }
     },
-    
+
     clearSearch: (state) => {
       state.searchTerm = '';
       state.filteredItems = [];
@@ -452,15 +472,15 @@ const foodSlice = createSlice({
   },
 });
 
-export const { 
-  addToCart, 
-  removeFromCart, 
-  updateQuantity, 
-  clearCart, 
-  addToFavorites, 
-  removeFromFavorites, 
-  setSearchTerm, 
-  clearSearch 
+export const {
+  addToCart,
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+  addToFavorites,
+  removeFromFavorites,
+  setSearchTerm,
+  clearSearch
 } = foodSlice.actions;
 
 export default foodSlice.reducer;

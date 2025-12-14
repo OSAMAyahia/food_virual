@@ -145,9 +145,10 @@
     font-size: 1rem;
   }
 
-  /* Show 2 cards per view on mobile */
+  /* Show 2 cards per view on mobile - Let JS handle width */
   .card-category-item {
-    width: 50% !important;
+    /* width: 50% !important; Removed to avoid conflict with JS */
+    padding: 0 5px;
   }
 }
 
@@ -161,11 +162,20 @@
     font-size: 1.2rem;
   }
 
+  .card-category-slider {
+    padding: 0;
+  }
+
+  .card-category-item {
+    box-sizing: border-box;
+    padding: 0 2px;
+  }
+
   .card-category-image {
     height: 200px;
-    /* Increased to fix cropping/blurriness */
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    background: #fff;
   }
 
   .card-category-body {
@@ -180,11 +190,6 @@
     width: 30px;
     height: 30px;
     font-size: 0.9rem;
-  }
-
-  /* Show 1 card per view on very small screens */
-  .card-category-item {
-    width: 100% !important;
   }
 }
 

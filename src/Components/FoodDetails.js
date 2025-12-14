@@ -3,7 +3,7 @@ import NavBarCom from './NavBarCom';
 import '../App.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { getfoodDetails, addToCart, addToFavorites } from '../Redux/Root';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { showToast } from '../showToast';
 import './FoodDetails.css';
@@ -17,9 +17,11 @@ const FoodDetails = () => {
     dispatch(getfoodDetails(id));
   }, [id, dispatch]);
 
+  const navigate = useNavigate();
   const { currentFood, loading, error } = useSelector((state) => state?.food || {});
   const cartItems = useSelector(state => state.food?.cartItems || []);
   const favoriteItems = useSelector(state => state.food?.favoriteItems || []);
+  const isAuthenticated = useSelector(state => state.user?.isAuthenticated);
 
   if (loading) return (
     <div className="loading-container">
@@ -46,6 +48,11 @@ const FoodDetails = () => {
   );
 
   const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      toast.info('Please login to add items to cart');
+      navigate('/login');
+      return;
+    }
     dispatch(addToCart(currentFood));
     toast.success('Added to cart successfully!', {
       position: "top-right",
@@ -59,6 +66,11 @@ const FoodDetails = () => {
   };
 
   const handleAddToFavorites = () => {
+    if (!isAuthenticated) {
+      toast.info('Please login to add to favorites');
+      navigate('/login');
+      return;
+    }
     dispatch(addToFavorites(currentFood));
     toast.success('Added to favorites!', {
       position: "top-right",
@@ -78,7 +90,7 @@ const FoodDetails = () => {
     <div className="food-details-page">
       <ToastContainer />
       <NavBarCom />
-      
+
       <div className="container">
         <div className="food-details-container">
           {/* Image Section */}
@@ -86,14 +98,14 @@ const FoodDetails = () => {
             <div className="image-wrapper">
               <img
                 src={currentFood.image}
-                onError={(e) => { 
-                  e.currentTarget.src = 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop'; 
+                onError={(e) => {
+                  e.currentTarget.src = 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop';
                 }}
                 className="food-main-image"
                 alt={currentFood.name}
               />
               <div className="price-badge">
-                <span className="price-text">${currentFood.price}</span>
+                <span className="price-text">{currentFood.price} SAR</span>
               </div>
             </div>
           </div>
@@ -126,8 +138,8 @@ const FoodDetails = () => {
               <div className="ingredients-grid">
                 {Array.isArray(currentFood?.ingredients) && currentFood.ingredients.length > 0
                   ? currentFood.ingredients.map((item, index) => (
-                      <span key={index} className="ingredient-tag">{item}</span>
-                    ))
+                    <span key={index} className="ingredient-tag">{item}</span>
+                  ))
                   : <p className="no-ingredients">No ingredients available.</p>
                 }
               </div>
@@ -137,26 +149,26 @@ const FoodDetails = () => {
               <h3 className="section-title">Nutritional Information (per serving)</h3>
               <div className="nutrition-grid">
                 <div className="nutrition-item">
-                  <span className="nutrition-value">{Math.floor(Math.random() * 200 + 300)}</span>
+                  <span className="nutrition-value">{currentFood?.nutrition?.calories || 350}</span>
                   <span className="nutrition-label">Calories</span>
                 </div>
                 <div className="nutrition-item">
-                  <span className="nutrition-value">{Math.floor(Math.random() * 20 + 15)}g</span>
+                  <span className="nutrition-value">{currentFood?.nutrition?.protein || 20}g</span>
                   <span className="nutrition-label">Protein</span>
                 </div>
                 <div className="nutrition-item">
-                  <span className="nutrition-value">{Math.floor(Math.random() * 30 + 20)}g</span>
+                  <span className="nutrition-value">{currentFood?.nutrition?.carbs || 30}g</span>
                   <span className="nutrition-label">Carbs</span>
                 </div>
                 <div className="nutrition-item">
-                  <span className="nutrition-value">{Math.floor(Math.random() * 15 + 5)}g</span>
+                  <span className="nutrition-value">{currentFood?.nutrition?.fat || 15}g</span>
                   <span className="nutrition-label">Fat</span>
                 </div>
               </div>
             </div>
 
             <div className="action-buttons">
-              <button 
+              <button
                 className={`btn-add-cart ${isInCart ? 'in-cart' : ''}`}
                 onClick={handleAddToCart}
                 disabled={isInCart}
@@ -166,8 +178,8 @@ const FoodDetails = () => {
                   {isInCart ? 'Already in Cart' : 'Add to Cart'}
                 </span>
               </button>
-              
-              <button 
+
+              <button
                 className={`btn-favorite ${isInFavorites ? 'in-favorites' : ''}`}
                 onClick={handleAddToFavorites}
                 disabled={isInFavorites}
@@ -178,11 +190,10 @@ const FoodDetails = () => {
                 </span>
               </button>
             </div>
-
             <div className="delivery-info">
               <div className="delivery-item">
                 <span className="delivery-icon">🚚</span>
-                <span className="delivery-text">Free delivery on orders over $50</span>
+                <span className="delivery-text">Free delivery on orders over 50 SAR</span>
               </div>
               <div className="delivery-item">
                 <span className="delivery-icon">⏰</span>
