@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import './CardCategory.css';
 
 const CardCategory = () => {
-  const [currentIndex, setCurrentIndex] = useState(0); // المؤشر الحالي
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsToShow, setItemsToShow] = useState(3);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const trackRef = useRef(null);
 
   // Define cards array first
   const cards = [
@@ -26,68 +32,124 @@ const CardCategory = () => {
   // Handle window resize for responsive behavior
   useEffect(() => {
     const handleResize = () => {
-      setCardsPerPage(getCardsPerPage());
-      // Reset current index if it's out of bounds with new cards per page
-      setCurrentIndex(prev => Math.min(prev, Math.max(0, cards.length - getCardsPerPage())));
+      let newItemsToShow;
+      if (window.innerWidth <= 480) {
+        newItemsToShow = 2; // Small mobile: 2 cards
+      } else if (window.innerWidth <= 768) {
+        newItemsToShow = 2; // Mobile: 2 cards
+      } else if (window.innerWidth <= 1024) {
+        newItemsToShow = 3; // Tablet: 3 cards
+      } else {
+        newItemsToShow = 3; // Desktop: 3 cards
+      }
+      setItemsToShow(newItemsToShow);
+      // Reset current index if it's out of bounds with new items to show
+      setCurrentIndex(prev => Math.min(prev, Math.max(0, cards.length - newItemsToShow)));
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [cards.length]);
 
-  // Responsive cards per page based on screen size
-  const getCardsPerPage = () => {
-    if (window.innerWidth < 768) return 1; // Mobile phones
-    return 2; // Show 2 cards on everything else (Tablet/Desktop)
+  // Touch handlers
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const [cardsPerPage, setCardsPerPage] = useState(getCardsPerPage());
-  const step = Math.max(1, cardsPerPage - 1); // عدد الكروت التي يتم التحرك بها عند الضغط على الزر
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
 
-  // التنقل لليمين
-  const handleNext = () => {
-    if (currentIndex + step < cards.length - cardsPerPage + 1) {
-      setCurrentIndex(currentIndex + step);
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+    if (isLeftSwipe) nextSlide();
+    else if (isRightSwipe) prevSlide();
+  };
+
+  // التعديل المهم هنا - nextSlide
+  const nextSlide = () => {
+    if (isTransitioning) return;
+
+    if (currentIndex >= cards.length - itemsToShow) {
+      // وصلنا آخر كارت - نرجع للأول
+      if (trackRef.current) {
+        trackRef.current.classList.add('no-transition');
+      }
+      setCurrentIndex(0);
+      setTimeout(() => {
+        if (trackRef.current) {
+          trackRef.current.classList.remove('no-transition');
+        }
+      }, 50);
     } else {
-      setCurrentIndex(0); // Loop to start
+      setIsTransitioning(true);
+      setCurrentIndex(currentIndex + 1);
+      setTimeout(() => setIsTransitioning(false), 400);
     }
   };
 
-  // التنقل لليسار
-  const handlePrev = () => {
-    if (currentIndex - step >= 0) {
-      setCurrentIndex(currentIndex - step);
+  // التعديل المهم هنا - prevSlide
+  const prevSlide = () => {
+    if (isTransitioning) return;
+
+    if (currentIndex <= 0) {
+      // وصلنا أول كارت - نروح للآخر
+      if (trackRef.current) {
+        trackRef.current.classList.add('no-transition');
+      }
+      setCurrentIndex(cards.length - itemsToShow);
+      setTimeout(() => {
+        if (trackRef.current) {
+          trackRef.current.classList.remove('no-transition');
+        }
+      }, 50);
     } else {
-      setCurrentIndex(Math.max(0, cards.length - (cardsPerPage || 1))); // Loop to end
+      setIsTransitioning(true);
+      setCurrentIndex(currentIndex - 1);
+      setTimeout(() => setIsTransitioning(false), 400);
     }
   };
+
+  const maxIndex = Math.max(0, cards.length - itemsToShow);
 
   return (
     <div className="card-category-container">
       <h4 className="card-category-title">Categories</h4>
       <div className="card-category-wrapper">
-        {/* Left navigation button */}
+        {/* Left navigation button - شلنا الـ disabled */}
         <button
           className="card-category-nav-btn"
-          onClick={handlePrev}
+          onClick={prevSlide}
+          aria-label="Previous categories"
         >
-          &lt;
+          <ChevronLeft />
         </button>
 
         {/* Cards display */}
-        <div className="card-category-slider">
+        <div
+          className="card-category-slider"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <div
-            className="card-category-track"
+            ref={trackRef}
+            className={`card-category-track ${isTransitioning ? 'transitioning' : ''}`}
             style={{
-              transform: `translateX(-${(currentIndex * 100) / cards.length}%)`,
-              transition: "transform 0.5s ease-in-out",
-              width: `${(cards.length * 100) / cardsPerPage}%`,
+              transform: `translateX(-${currentIndex * (100 / itemsToShow)}%)`,
             }}
           >
             {cards.map((card, index) => (
               <div
                 className="card-category-item"
-                style={{ width: `${100 / cards.length}%` }}
+                style={{
+                  width: `${100 / itemsToShow}%`,
+                  flexShrink: 0
+                }}
                 key={index}
               >
                 <Link
@@ -111,13 +173,32 @@ const CardCategory = () => {
           </div>
         </div>
 
-        {/* Right navigation button */}
+        {/* Right navigation button - شلنا الـ disabled */}
         <button
           className="card-category-nav-btn"
-          onClick={handleNext}
+          onClick={nextSlide}
+          aria-label="Next categories"
         >
-          &gt;
+          <ChevronRight />
         </button>
+      </div>
+
+      {/* Dots indicator */}
+      <div className="card-category-dots">
+        {Array.from({ length: maxIndex + 1 }, (_, index) => (
+          <button
+            key={index}
+            className={`dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => {
+              if (!isTransitioning) {
+                setIsTransitioning(true);
+                setCurrentIndex(index);
+                setTimeout(() => setIsTransitioning(false), 400);
+              }
+            }}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
     </div>
   );

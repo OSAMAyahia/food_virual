@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { Favorite, FavoriteBorder, ShoppingCart } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { addToFavorites, removeFromFavorites, addToCart } from '../Redux/Root';
+import CategoryCarousel from './CategoryCarousel';
 import './Categories.css';
 
 const Categories = () => {
@@ -87,18 +88,14 @@ const Categories = () => {
         <p>Discover delicious dishes from different cuisines</p>
       </div>
 
-      {/* Category Filter */}
-      <div className="category-filter">
-        {categories.map((category) => (
-          <button
-            key={category}
-            className={`category-filter-btn ${selectedCategory === category ? 'active' : ''}`}
-            onClick={() => handleCategoryClick(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
+      {/* Category Carousel Filter */}
+      {categories.length > 0 && (
+        <CategoryCarousel 
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategorySelect={handleCategoryClick}
+        />
+      )}
 
       {/* Results Count */}
       <div className="results-count">
