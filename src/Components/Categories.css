@@ -277,6 +277,8 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  flex-shrink: 0;
+  /* Prevent squashing */
 }
 
 .add-to-cart-btn:hover {
@@ -309,39 +311,39 @@
   .categories-container {
     padding: 15px 10px;
   }
-  
+
   .categories-header h1 {
     font-size: 1.8rem;
   }
-  
+
   .category-filter {
     gap: 8px;
     padding: 0 5px;
   }
-  
+
   .category-filter-btn {
     padding: 6px 12px;
     font-size: 12px;
   }
-  
+
   .food-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 16px;
     padding: 0 5px;
   }
-  
+
   .food-image-container {
     height: 140px;
   }
-  
+
   .food-content {
     padding: 12px;
   }
-  
+
   .food-name {
     font-size: 0.95rem;
   }
-  
+
   .food-description {
     font-size: 13px;
     -webkit-line-clamp: 2;
@@ -360,19 +362,19 @@
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     gap: 24px;
   }
-  
+
   .food-image-container {
     height: 200px;
   }
-  
+
   .food-content {
     padding: 18px;
   }
-  
+
   .food-name {
     font-size: 1.1rem;
   }
-  
+
   .food-price {
     font-size: 1.2rem;
   }
@@ -382,73 +384,73 @@
   .categories-container {
     padding: 10px 8px;
   }
-  
+
   .categories-header h1 {
     font-size: 1.5rem;
   }
-  
+
   .category-filter {
     gap: 6px;
     padding: 0;
   }
-  
+
   .category-filter-btn {
     padding: 5px 10px;
     font-size: 11px;
     min-width: 70px;
   }
-  
+
   .food-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     padding: 0;
   }
-  
+
   .food-image-container {
     height: 120px;
   }
-  
+
   .food-content {
     padding: 10px;
   }
-  
+
   .food-name {
     font-size: 0.9rem;
   }
-  
+
   .food-description {
     font-size: 12px;
     -webkit-line-clamp: 1;
     margin-bottom: 10px;
   }
-  
+
   .food-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
   }
-  
+
   .food-meta {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
   }
-  
+
   .food-footer {
     flex-direction: column;
     gap: 10px;
     align-items: stretch;
   }
-  
+
   .food-price {
     font-size: 1rem;
   }
-  
+
   .food-actions {
     width: 100%;
     justify-content: space-between;
   }
-  
+
   .view-details-btn {
     flex: 1;
     text-align: center;

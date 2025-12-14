@@ -3,9 +3,9 @@
   margin: 0px;
   padding: 0px;
 }
- 
 
-.buttons{
+
+.buttons {
   background-color: rgba(187, 93, 93, 0.404);
   display: inline;
   border-radius: 15px;
@@ -16,6 +16,20 @@
   margin: 3px;
 }
 
+/* Global Toast Override */
+.Toastify__toast-container {
+  z-index: 10000 !important;
+  top: 85px !important;
+  /* Push down below navbar */
+}
 
+.Toastify__toast {
+  z-index: 10001 !important;
+}
 
-
+/* Fix mobile nav height if needed */
+@media (max-width: 768px) {
+  .Toastify__toast-container {
+    top: 70px !important;
+  }
+}

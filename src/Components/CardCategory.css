@@ -162,8 +162,10 @@
   }
 
   .card-category-image {
-    height: 140px;
-    /* Increased from 100px */
+    height: 200px;
+    /* Increased to fix cropping/blurriness */
+    width: 100%;
+    object-fit: cover;
   }
 
   .card-category-body {
