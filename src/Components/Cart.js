@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   removeFromCart, 
   updateQuantity, 
@@ -18,11 +18,13 @@ import {
   Payment,
   Schedule
 } from '@mui/icons-material';
+import NavBarCom from './NavBarCom';
 import { toast } from 'react-toastify';
 import './Cart.css';
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector(state => state.food?.cartItems || []);
   const totalPrice = useSelector(state => state.food?.totalPrice || 0);
   const totalQuantities = useSelector(state => state.food?.totalQuantities || 0);
@@ -57,8 +59,7 @@ const Cart = () => {
       toast.warning('Your cart is empty!');
       return;
     }
-    toast.success('Proceeding to checkout...');
-    // Here you would typically redirect to checkout page
+    navigate('/checkout');
   };
 
   const handlePromoCode = () => {
@@ -88,21 +89,26 @@ const Cart = () => {
 
   if (!cartItems || cartItems.length === 0) {
     return (
-      <div className="cart-container">
-        <div className="empty-cart">
-          <ShoppingCart className="empty-icon" />
-          <h2>Your Cart is Empty</h2>
-          <p>Looks like you haven't added any items to your cart yet.</p>
-          <Link to="/category" className="browse-link">
-            Browse Dishes
-          </Link>
+      <div>
+        <NavBarCom />
+        <div className="cart-container">
+          <div className="empty-cart">
+            <ShoppingCart className="empty-icon" />
+            <h2>Your Cart is Empty</h2>
+            <p>Looks like you haven't added any items to your cart yet.</p>
+            <Link to="/category" className="browse-link">
+              Browse Dishes
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="cart-container">
+    <div>
+      <NavBarCom />
+      <div className="cart-container">
       <div className="cart-header">
         <h1>Shopping Cart</h1>
         <div className="cart-summary">
@@ -186,7 +192,7 @@ const Cart = () => {
             {/* Promo Code Section */}
             <div className="promo-section">
               <div className="promo-input-group">
-                <LocalOffer className="promo-icon" />
+                {/* <LocalOffer className="promo-icon" /> */}
                 <input
                   type="text"
                   placeholder="Enter promo code"
@@ -253,6 +259,7 @@ const Cart = () => {
             </Link>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

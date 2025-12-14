@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { removeFromFavorites, addToCart } from '../Redux/Root';
 import { Favorite, ShoppingCart, Star, Delete } from '@mui/icons-material';
+import NavBarCom from './NavBarCom';
 import './Favorites.css';
 
 const Favorites = () => {
@@ -27,21 +28,26 @@ const Favorites = () => {
 
   if (!favoriteItems || favoriteItems.length === 0) {
     return (
-      <div className="favorites-container">
-        <div className="empty-favorites">
-          <Favorite className="empty-icon" />
-          <h2>No Favorites Yet</h2>
-          <p>You haven't added any items to your favorites.</p>
-          <Link to="/category" className="browse-link">
-            Browse Dishes
-          </Link>
+      <div>
+        <NavBarCom />
+        <div className="favorites-container">
+          <div className="empty-favorites">
+            <Favorite className="empty-icon" />
+            <h2>No Favorites Yet</h2>
+            <p>You haven't added any items to your favorites.</p>
+            <Link to="/category" className="browse-link">
+              Browse Dishes
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="favorites-container">
+    <div>
+      <NavBarCom />
+      <div className="favorites-container">
       <div className="favorites-header">
         <h1>My Favorites</h1>
         <div className="favorites-count">
@@ -110,6 +116,7 @@ const Favorites = () => {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );

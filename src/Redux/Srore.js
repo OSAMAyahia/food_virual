@@ -8,12 +8,12 @@
 // }})
 
 import { configureStore } from "@reduxjs/toolkit";
-import { foodSlices } from "./Root";
+import foodSlice from "./Root";
 import  { CartSlise } from '../Redux/Food/CartSlice'
 import { userSlise } from "./Food/Security";
 
 export const Store=configureStore({reducer:{
-    food:foodSlices,
+    food:foodSlice,
     cart:CartSlise,
     user:userSlise,
 }})

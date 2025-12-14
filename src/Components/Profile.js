@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import NavBarCom from "./NavBarCom";
 import { useSelector, useDispatch } from 'react-redux';
 import { checkAuth } from '../Redux/Food/Security';
+import './Profile.css';
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -44,15 +45,25 @@ const ProfilePage = () => {
             <div className="card shadow-lg border-0">
               <div className="card-body text-center">
                 <div className="mb-3">
-                  {/* Profile Image */}
-                  <img
-                    src={currentUser.profileImage}
-                    onError={(e) => { e.currentTarget.src = 'https://placehold.co/120x120?text=User'; }}
-                    alt="Profile"
-                    className="rounded-circle img-thumbnail"
-                    width="120"
-                    height="120"
-                  />
+                  {/* Profile Avatar with First Letter */}
+                  <div className="profile-avatar">
+                    {currentUser.name ? (
+                      <div className="avatar-circle">
+                        <span className="avatar-letter">
+                          {currentUser.name.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    ) : (
+                      <img
+                        src={currentUser.profileImage || 'https://placehold.co/120x120?text=User'}
+                        onError={(e) => { e.currentTarget.src = 'https://placehold.co/120x120?text=User'; }}
+                        alt="Profile"
+                        className="rounded-circle img-thumbnail"
+                        width="120"
+                        height="120"
+                      />
+                    )}
+                  </div>
                 </div>
                 {/* User Info */}
                 <h3 className="card-title mb-3">{currentUser.name}</h3>
@@ -77,7 +88,16 @@ const ProfilePage = () => {
                   </div>
                   <div className="mb-2">
                     <strong>تاريخ الانضمام:</strong>
-                    <span className="text-muted"> {new Date(currentUser.createdAt).toLocaleDateString('ar-EG')}</span>
+                    <span className="text-muted"> 
+                      {currentUser.createdAt 
+                        ? new Date(currentUser.createdAt).toLocaleDateString('ar-EG', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })
+                        : 'غير متاح'
+                      }
+                    </span>
                   </div>
                 </div>
 

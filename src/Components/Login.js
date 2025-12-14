@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {useNavigate } from 'react-router-dom'
 import { showToast } from './../showToast';
 import { ToastContainer, toast } from 'react-toastify';
+import './Auth.css';
 
 const Login = ( ) => {
 
@@ -61,7 +62,7 @@ const Login = ( ) => {
   }, [currentUser, navigate])
 
   return (
-    <div style={{textAlign:'left'}} className=' row vh-100 d-flex align-items-center justify-content-center'>
+    <div style={{textAlign:'left'}} className='row min-vh-100 d-flex align-items-center justify-content-center auth-container auth-page'>
       <ToastContainer/>
       <div className=' col-12 col-sm-12 col-md-12 col-lg-6 '>
         <img className='vh-100' style={{width:'100%' ,height:'auto' ,objectFit:'cover'}} src='https://raw.githubusercontent.com/rishavchanda/FoodDelivery-MERN/refs/heads/main/client/src/utils/Images/AuthImage.jpg' />

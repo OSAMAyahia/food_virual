@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Email, LocationOn, AccessTime, Facebook, Instagram, Twitter, Send, CheckCircle } from '@mui/icons-material';
 import { toast } from 'react-toastify';
+import NavBarCom from './NavBarCom';
 import './Contact.css';
 
 const Contact = () => {
@@ -46,7 +47,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-page">
+    <div>
+      <NavBarCom />
+      <div className="contact-page">
       {/* Header Section */}
       <div className="contact-header">
         <div className="container">
@@ -269,6 +272,7 @@ const Contact = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -2,8 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Phone, Email, LocationOn } from '@mui/icons-material';
 import './Footer.css';
+import { useSelector } from 'react-redux';
 
 const Footer = () => {
+  const foodItems = useSelector(state => state.food.foodItem || []);
+  
+  // Get top categories by count
+  const getTopCategories = () => {
+    const categoryCount = {};
+    foodItems.forEach(item => {
+      categoryCount[item.category] = (categoryCount[item.category] || 0) + 1;
+    });
+    return Object.entries(categoryCount)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 4)
+      .map(([category]) => category);
+  };
+
+  const topCategories = getTopCategories();
+  
   return (
     <footer className="footer">
       <div className="container">
@@ -16,9 +33,9 @@ const Footer = () => {
               استمتعوا بتجربة طعام فريدة من مطابخ مختلفة حول العالم.
             </p>
             <div className="social-links">
-              <a href="#" className="social-link"><Facebook /></a>
-              <a href="#" className="social-link"><Instagram /></a>
-              <a href="#" className="social-link"><Twitter /></a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-link"><Facebook /></a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link"><Instagram /></a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-link"><Twitter /></a>
             </div>
           </div>
 
@@ -33,14 +50,20 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Categories */}
+          {/* Popular Categories */}
           <div className="col-lg-2 col-md-6 mb-4">
-            <h5 className="footer-title">الأقسام</h5>
+            <h5 className="footer-title">الأقسام الأشهر</h5>
             <ul className="footer-links">
-              <li><a href="#" className="footer-link">بيتزا</a></li>
-              <li><a href="#" className="footer-link">برجر</a></li>
-              <li><a href="#" className="footer-link">مأكولات عربية</a></li>
-              <li><a href="#" className="footer-link">حلويات</a></li>
+              {topCategories.map(category => (
+                <li key={category}>
+                  <Link 
+                    to={`/dishes?category=${encodeURIComponent(category)}`} 
+                    className="footer-link"
+                  >
+                    {category}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -50,15 +73,15 @@ const Footer = () => {
             <div className="contact-info">
               <div className="contact-item">
                 <LocationOn className="contact-icon" />
-                <span>القاهرة، مصر - شارع التحرير</span>
+                <span className="contact-text">القاهرة، مصر - شارع التحرير</span>
               </div>
               <div className="contact-item">
                 <Phone className="contact-icon" />
-                <span>+20 123 456 7890</span>
+                <span className="contact-text">+20 123 456 7890</span>
               </div>
               <div className="contact-item">
                 <Email className="contact-icon" />
-                <span>info@deliciousfood.com</span>
+                <span className="contact-text">info@deliciousfood.com</span>
               </div>
             </div>
           </div>
@@ -70,7 +93,7 @@ const Footer = () => {
           <div className="col-12">
             <div className="footer-bottom">
               <p className="footer-copyright">
-                © 2024 Delicious Food. جميع الحقوق محفوظة.
+                © 2025 Delicious Food. جميع الحقوق محفوظة.
               </p>
               <div className="footer-terms">
                 <Link to="/terms" className="footer-link">الشروط والأحكام</Link>

@@ -1,6 +1,6 @@
 import './App.css';
 import FoodDetails from './Components/FoodDetails';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import HomeS from './Components/Home';
 import Cart from './Components/Cart';
 import Filter from './Components/Filter';
@@ -14,6 +14,12 @@ import Footer from './Components/Footer';
 import Contact from './Components/Contact';
 import Favorites from './Components/Favorites';
 import SearchResults from './Components/SearchResults';
+import Categories from './Components/Categories';
+import NavBarCom from './Components/NavBarCom';
+import Checkout from './Components/Checkout';
+import OrderConfirmation from './Components/OrderConfirmation';
+import ConditionalNavBar from './Components/ConditionalNavBar';
+import ConditionalFooter from './Components/ConditionalFooter';
  
 function App() {
   const [islogged]=ProtecRouteHook("off")
@@ -21,6 +27,7 @@ function App() {
   return (
     <div className="App  ">
         <Router>
+          <ConditionalNavBar islogged={islogged}/>
         <Routes>
     <Route index element={<HomeS islogged={islogged}/>} />
     <Route path="/login" element={<Login   />} />
@@ -30,14 +37,16 @@ function App() {
     <Route path="/details/:id" element={<FoodDetails />} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/favorites" element={<Favorites />} />
-    <Route path="/category" element={<Filter />} />
+    <Route path="/dishes" element={<Categories />} />
     <Route path="/profile" element={<ProfilePage />} />
     <Route path="/order" element={<OrdersPage />} />
+    <Route path="/checkout" element={<Checkout />} />
+    <Route path="/order-confirmation" element={<OrderConfirmation />} />
   </Route>
    <Route path="*" element={<Navigate to="/" />} />
 </Routes>
 <SearchResults />
-<Footer />
+<ConditionalFooter />
     </Router>
       </div>
   );
